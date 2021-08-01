@@ -1,0 +1,16 @@
+.link {
+  cursor: pointer;
+  color: var(--white-07);
+  text-align: center;
+  font-size: 1.35rem;
+  text-decoration: underline;
+  font-style: italic;
+  letter-spacing: 0.1rem;
+  transition: opacity 250ms linear;
+  &:hover {
+    opacity: 0.8;
+  }
+  &:active {
+    opacity: 0.9;
+  }
+}
