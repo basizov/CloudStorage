@@ -1,16 +1,15 @@
-import express, { Application, Request, Response, NextFunction } from 'express'
+import express, { Application } from 'express'
 import mongoose from 'mongoose'
+import { ERouterLinks } from './domain/enums/ERouterLinks';
 import enviromentConfig from './enviroment/config'
+import loggerMiddleware from './middleware/loggerMiddleware';
+import router from './routes';
 
 const applicaton: Application = express();
 const PORT = enviromentConfig.SERVER_STARTING_PORT;
 
-const loggerMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  console.log(`${req.method} ${req.path}`);
-  next();
-};
-
 applicaton.use(express.json());
+applicaton.use(ERouterLinks.BASE_ROUTE, router);
 applicaton.use(loggerMiddleware);
 
 const start = async () => {
