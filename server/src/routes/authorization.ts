@@ -1,10 +1,21 @@
-import { Response, Router, Request } from "express";
+import { Router } from "express";
+import { check } from "express-validator";
+import UserController from "../controllers/UserController";
 import { ERouterLinks } from "../domain/enums/ERouterLinks";
 
 const router: Router = Router();
 
-router.use(ERouterLinks.REGISTRATION_ROUTE, (req: Request, res: Response) => {
+enum ERegister {
+  EMAIL_FIELD = 'email',
+  PASSWORD_FIELD = 'password'
+};
 
-});
+router.post(ERouterLinks.REGISTRATION_ROUTE, [
+  check(ERegister.EMAIL_FIELD, 'Uncorrect email :(').isEmail(),
+  check(ERegister.PASSWORD_FIELD, 'Password must be longer than 3 and shorter than 12').isLength({
+    min: 3,
+    max: 12
+  })
+], UserController.register);
 
 export default router;

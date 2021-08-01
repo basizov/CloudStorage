@@ -1,0 +1,37 @@
+import { IApplicationError } from "../interfaces/IApplicationError";
+
+class ApplicationError extends Error {
+  status: number = 0;
+  message: string = '';
+
+  constructor(props: IApplicationError) {
+    super();
+    const { status, message } = props;
+
+    this.status = status;
+    this.message = message;
+  };
+
+  static badRequest(message: string) {
+    return new ApplicationError({
+      status: 400,
+      message: message
+    });
+  };
+
+  static notAuthorized(message: string) {
+    return new ApplicationError({
+      status: 401,
+      message: message
+    });
+  };
+
+  static internal(message: string) {
+    return new ApplicationError({
+      status: 500,
+      message: message
+    });
+  };
+};
+
+export default ApplicationError;
