@@ -26,6 +26,13 @@ class ApplicationError extends Error {
     });
   };
 
+  static notFound(message: string) {
+    return new ApplicationError({
+      status: 404,
+      message: message
+    });
+  };
+
   static internal(message: string) {
     return new ApplicationError({
       status: 500,

@@ -17,5 +17,6 @@ router.post(ERouterLinks.REGISTRATION_ROUTE, [
     max: 12
   })
 ], UserController.register);
+router.post(ERouterLinks.LOGIN_ROUTE, UserController.login)
 
 export default router;
