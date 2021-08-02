@@ -1,7 +1,12 @@
 <template>
   <section class="login">
+    <pre>{{ $store.getters.getUser }}</pre>
     <h2 class="login__title">Авторизация</h2>
-    <auth-form formButtonText="Войти" class="login__form" />
+    <auth-form
+      @submitForm="login"
+      formButtonText="Войти"
+      class="login__form"
+    />
     <div class="link login__link" @click="$router.push('/register')">
       У вас еще нет аккаунта?
     </div>
@@ -10,11 +15,27 @@
 
 <script lang="ts">
 import AuthForm from '@/components/tagComponents/AuthForm.vue';
+import { IAuth } from '@/models/IAuth';
+import { loginHandler } from '@/api/authorization';
 import { defineComponent } from 'vue';
+import { CommonMutationsTypes } from '@/store/commonModule/mutations';
+import { mapState } from 'vuex';
 
 export default defineComponent({
   components: { AuthForm },
-  name: 'Login'
+  name: 'Login',
+  computed: {
+    ...mapState(['user'])
+  },
+  methods: {
+    async login(params: IAuth) {
+      const user = await loginHandler(params);
+
+      if (user) {
+        this.$store.commit(CommonMutationsTypes.SET_USER, user);
+      }
+    }
+  }
 });
 </script>
 

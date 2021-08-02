@@ -2,6 +2,7 @@ import express, { Application } from 'express';
 import mongoose from 'mongoose';
 import { ERouterLinks } from './domain/enums/ERouterLinks';
 import enviromentConfig from './enviroment/config';
+import corsMiddleware from './middleware/corsMiddleware';
 import errorMiddleware from './middleware/errorMiddleware';
 import loggerMiddleware from './middleware/loggerMiddleware';
 import router from './routes';
@@ -9,6 +10,7 @@ import router from './routes';
 const applicaton: Application = express();
 const PORT = enviromentConfig.SERVER_STARTING_PORT;
 
+applicaton.use(corsMiddleware);
 applicaton.use(express.json());
 applicaton.use(ERouterLinks.BASE_ROUTE, router);
 applicaton.use(loggerMiddleware);

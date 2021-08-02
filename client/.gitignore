@@ -2,6 +2,7 @@
 node_modules
 /dist
 
+enviroment
 
 .env.local
 .env.*.local

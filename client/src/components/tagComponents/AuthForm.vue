@@ -39,6 +39,8 @@ export default defineComponent({
       };
 
       this.$emit('submitForm', params);
+      this.email = '';
+      this.password = '';
     }
   }
 });

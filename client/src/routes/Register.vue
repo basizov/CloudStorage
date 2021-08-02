@@ -2,6 +2,7 @@
   <section class="register">
     <h2 class="register__title">Регистрация</h2>
     <auth-form
+      @submitForm="register"
       formButtonText="Зарегестрироваться"
       class="register__form"
     />
@@ -12,12 +13,19 @@
 </template>
 
 <script lang="ts">
+import { registerHandler } from '@/api/authorization';
 import AuthForm from '@/components/tagComponents/AuthForm.vue';
+import { IAuth } from '@/models/IAuth';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
   components: { AuthForm },
-  name: 'Register'
+  name: 'Register',
+  methods: {
+    async register(params: IAuth) {
+      console.log(await registerHandler(params));
+    }
+  }
 });
 </script>
 

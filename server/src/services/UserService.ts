@@ -36,8 +36,12 @@ class UserService {
     }
     const token = jwt.sign({ id: user.id }, config.SECRET_KEY, { expiresIn: '1h' });
     const loginUser: ILogin = {
-      token,
-      ...user
+      token: token,
+      id: user.id,
+      email: user.email,
+      diskSpace: user.diskSpace,
+      usedSpace: user.usedSpace,
+      avatar: user.avatar
     };
 
     return (loginUser)
