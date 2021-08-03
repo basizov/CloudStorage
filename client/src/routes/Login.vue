@@ -16,24 +16,16 @@
 <script lang="ts">
 import AuthForm from '@/components/tagComponents/AuthForm.vue';
 import { IAuth } from '@/models/IAuth';
-import { loginHandler } from '@/api/authorization';
 import { defineComponent } from 'vue';
-import { CommonMutationsTypes } from '@/store/commonModule/mutations';
-import { mapState } from 'vuex';
+import { CommonActions } from '@/store/commonModule/actions';
 
 export default defineComponent({
   components: { AuthForm },
   name: 'Login',
-  computed: {
-    ...mapState(['user'])
-  },
   methods: {
-    async login(params: IAuth) {
-      const user = await loginHandler(params);
-
-      if (user) {
-        this.$store.commit(CommonMutationsTypes.SET_USER, user);
-      }
+    login(loginParams: IAuth) {
+      this.$store.dispatch(CommonActions.LOGIN_USER, loginParams);
+      this.$router.push('/');
     }
   }
 });

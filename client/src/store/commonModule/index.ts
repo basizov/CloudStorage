@@ -8,7 +8,7 @@ import getters, { GettersDefinition } from "./getters";
 export type CommonModule<S = CommonState> = Omit<VuexStore<S>, 'commit' | 'getters' | 'dispatch'> & {
   commit<K extends keyof CommonMutations>(
     key: K,
-    user: IUser | null,
+    payload: Parameters<CommonMutations[K]>[1],
     options?: CommitOptions
   ): ReturnType<CommonMutations[K]>;
 } & {
@@ -18,6 +18,7 @@ export type CommonModule<S = CommonState> = Omit<VuexStore<S>, 'commit' | 'gette
 } & {
   dispatch<K extends keyof ICommonActions>(
     key: K,
+    payload: Parameters<ICommonActions[K]>[1],
     options?: DispatchOptions
   ): ReturnType<ICommonActions[K]>
 };

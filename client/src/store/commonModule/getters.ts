@@ -2,11 +2,13 @@ import { IUser } from "@/models/IUser";
 import { CommonState } from "./state";
 
 export enum CommonGettersTypes {
-  GET_USER = 'getUser'
+  GET_USER = 'getUser',
+  GET_IS_AUTH = 'getIsAuth',
 };
 
 export interface CommonGetters {
   [CommonGettersTypes.GET_USER]: IUser | null;
+  [CommonGettersTypes.GET_IS_AUTH]: boolean;
 };
 
 export type GettersDefinition = {
@@ -14,7 +16,8 @@ export type GettersDefinition = {
 }
 
 const getters: GettersDefinition = {
-  [CommonGettersTypes.GET_USER]: state => state.user
+  [CommonGettersTypes.GET_USER]: state => state.user,
+  [CommonGettersTypes.GET_IS_AUTH]: state => state.isAuth
 };
 
 export default getters;
