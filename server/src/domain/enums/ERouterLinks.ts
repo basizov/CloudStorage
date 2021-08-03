@@ -4,4 +4,5 @@ export enum ERouterLinks {
   FILE_ROUTE = '/file',
   LOGIN_ROUTE = '/login',
   REGISTRATION_ROUTE = '/registration',
+  AUTHORIZE_TOKEN_ROUTE = '/auth'
 };

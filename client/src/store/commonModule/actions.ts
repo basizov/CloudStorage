@@ -1,4 +1,4 @@
-import { loginHandler } from "@/api/authorization";
+import { authHandler, loginHandler } from "@/api/authorization";
 import { IAuth } from "@/models/IAuth";
 import { IUser } from "@/models/IUser";
 import { ActionContext, ActionTree } from "vuex";
@@ -7,19 +7,21 @@ import { CommonState } from "./state";
 
 export enum CommonActions {
   LOGIN_USER = 'loginUser',
-  LOGOUT_USER = 'logoutUser'
+  LOGOUT_USER = 'logoutUser',
+  AUTH_USER = 'authUser',
 };
 
 type AugmentedActionContext = {
   commit<K extends keyof CommonMutations>(
     key: K,
-    payload: Parameters<CommonMutations[K]>[1]
+    payload?: Parameters<CommonMutations[K]>[1]
   ): ReturnType<CommonMutations[K]>
 } & Omit<ActionContext<CommonState, CommonState>, 'commit'>
 
 export interface ICommonActions {
   [CommonActions.LOGIN_USER]: ({ commit }: AugmentedActionContext, user: IAuth) => void;
   [CommonActions.LOGOUT_USER]: ({ commit }: AugmentedActionContext) => void;
+  [CommonActions.AUTH_USER]: ({ commit }: AugmentedActionContext) => void;
 };
 
 const actions: ActionTree<CommonState, CommonState> & ICommonActions = {
@@ -36,6 +38,15 @@ const actions: ActionTree<CommonState, CommonState> & ICommonActions = {
     commit(CommonMutationsTypes.SET_USER, null);
     commit(CommonMutationsTypes.SET_IS_AUTH, false);
     localStorage.removeItem('token');
+  },
+  [CommonActions.AUTH_USER]: async ({ commit }: AugmentedActionContext) => {
+    const user = await authHandler();
+
+    if (user) {
+      commit(CommonMutationsTypes.SET_USER, user);
+      commit(CommonMutationsTypes.SET_IS_AUTH, true);
+      localStorage.setItem('token', user.token);
+    }
   }
 };
 

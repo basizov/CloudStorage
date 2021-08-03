@@ -46,6 +46,21 @@ class UserService {
 
     return (loginUser)
   };
+
+  async auth(id: string) {
+    const user: IUser = await User.findOne({ _id: id });
+    const token = jwt.sign({ id: user.id }, config.SECRET_KEY, { expiresIn: '1h' });
+    const loginUser: ILogin = {
+      token: token,
+      id: user.id,
+      email: user.email,
+      diskSpace: user.diskSpace,
+      usedSpace: user.usedSpace,
+      avatar: user.avatar
+    };
+
+    return (loginUser)
+  }
 };
 
 export default new UserService();

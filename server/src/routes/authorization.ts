@@ -2,6 +2,7 @@ import { Router } from "express";
 import { check } from "express-validator";
 import UserController from "../controllers/UserController";
 import { ERouterLinks } from "../domain/enums/ERouterLinks";
+import authMiddleware from "../middleware/authMiddleware";
 
 const router: Router = Router();
 
@@ -17,6 +18,7 @@ router.post(ERouterLinks.REGISTRATION_ROUTE, [
     max: 12
   })
 ], UserController.register);
-router.post(ERouterLinks.LOGIN_ROUTE, UserController.login)
+router.post(ERouterLinks.LOGIN_ROUTE, UserController.login);
+router.get(ERouterLinks.AUTHORIZE_TOKEN_ROUTE, authMiddleware, UserController.auth);
 
 export default router;

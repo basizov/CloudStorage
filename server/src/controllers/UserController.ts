@@ -2,6 +2,7 @@ import { Response, Request, NextFunction } from "express";
 import { validationResult } from "express-validator";
 import { ILoginForm, IRegister } from "../domain/interfaces/IAuthorize";
 import ApplicationError from "../domain/models/ApplicationError";
+import { IAuthRequest } from "../middleware/authMiddleware";
 import UserService from "../services/UserService";
 
 interface IRegisterRequest extends Request {
@@ -31,6 +32,16 @@ class UserController {
   async login(req: ILoginRequest, res: Response, next: NextFunction) {
     try {
       const user = await UserService.login(req.body);
+
+      res.json(user);
+    } catch (e) {
+      next(e as ApplicationError);
+    }
+  };
+
+  async auth(req: Request, res: Response, next: NextFunction) {
+    try {
+      const user = await UserService.auth((req as IAuthRequest).id);
 
       res.json(user);
     } catch (e) {
