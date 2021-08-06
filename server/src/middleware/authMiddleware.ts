@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import ApplicationError from "../domain/models/ApplicationError";
 import config from "../enviroment/config";
 
-export interface IAuthRequest extends Request {
+export interface IAuthRequest<T1 = any, T2 = any, T3 = any, T4 = any> extends Request<T1, T2, T3, T4> {
   id: string;
 };
 

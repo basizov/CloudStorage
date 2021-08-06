@@ -1,11 +1,14 @@
 import { Response, Request, NextFunction } from "express";
 import { validationResult } from "express-validator";
 import { ILoginForm, IRegister } from "../domain/interfaces/IAuthorize";
+import { IUser } from "../domain/interfaces/IUser";
 import ApplicationError from "../domain/models/ApplicationError";
+import File from "../domain/models/File";
 import { IAuthRequest } from "../middleware/authMiddleware";
+import FileService from "../services/FileService";
 import UserService from "../services/UserService";
 
-interface IRegisterRequest extends Request {
+interface IRegisterRequest extends IAuthRequest {
   body: IRegister;
 };
 
@@ -14,16 +17,17 @@ interface ILoginRequest extends Request {
 };
 
 class UserController {
-  async register(req: IRegisterRequest, res: Response, next: NextFunction) {
+  async register(req: Request, res: Response, next: NextFunction) {
     try {
-      const error = validationResult(req);
+      const error = validationResult(req as IRegisterRequest);
 
       if (!error.isEmpty()) {
         throw ApplicationError.badRequest('Uncorrect request!');
       }
-      const user = await UserService.register(req.body);
+      const user: IUser = await UserService.register((req as IRegisterRequest).body);
 
       res.json(user);
+      FileService.createDirectory(new File({ userId: user._id, name: '' }));
     } catch (e) {
       next(e as ApplicationError);
     }
