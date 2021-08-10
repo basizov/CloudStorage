@@ -3,6 +3,8 @@ $primary-07: hsla(0, 0%, 13%, .7);
 $primary-09: hsla(0, 0%, 13%, .9);
 
 $secondary: hsl(0, 0%, 7%);
+$secondary-07: hsla(0, 0%, 7%, .7);
+
 $success: hsl(118, 72%, 17%);
 $failure: hsl(0, 72%, 17%);
 $warning: hsl(39, 87%, 50%);
@@ -21,12 +23,16 @@ $white: hsl(0, 0%, 100%);
 $white-07: hsla(0, 0%, 100%, 0.7);
 $white-08: hsla(0, 0%, 100%, 0.8);
 
+$navbar-zindex: 10000;
+
 :root {
   --primary: #{$primary};
   --primary-07: #{$primary-07};
   --primary-09: #{$primary-09};
 
   --secondary: #{$secondary};
+  --secondary-07: #{$secondary-07};
+
   --success: #{$success};
   --failure: #{$failure};
   --warning: #{$warning};
@@ -44,6 +50,8 @@ $white-08: hsla(0, 0%, 100%, 0.8);
   --white: #{$white};
   --white-07: #{$white-07};
   --white-08: #{$white-08};
+  
+  --navbar-zindex: #{$navbar-zindex};
 
   // --primary: rgb(122, 122, 122);
   // --secondary: rgb(185, 185, 185);

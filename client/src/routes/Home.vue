@@ -1,12 +1,13 @@
 <template>
-  <router-link to="/login">Авторизироваться</router-link>
-  <router-link to="/register">Регистрация</router-link>
+  <file-list />
 </template>
 
 <script lang="ts">
+import FileList from '@/components/tagComponents/FileList.vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
+  components: { FileList },
   name: 'Home'
 });
 </script>

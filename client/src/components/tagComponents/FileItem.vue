@@ -1,0 +1,38 @@
+<template>
+  <div class="file-item">
+    <img src="./folder.svg" alt="folder" class="file-item__icon" />
+    <div class="file-item__title">Test</div>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'FileItem'
+});
+</script>
+
+<style lang="scss" scoped>
+.file-item {
+  cursor: pointer;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+  min-width: 21rem;
+  padding: 0.7rem;
+  border: 0.1rem solid var(--secondary-07);
+  border-radius: 0.3em;
+  background-color: var(--primary);
+  box-shadow: 0 0 1rem var(--black-03);
+  &__icon {
+    width: 3rem;
+    height: 3rem;
+  }
+  &__title {
+    font-size: 1.6rem;
+    letter-spacing: 0.1em;
+  }
+}
+</style>
