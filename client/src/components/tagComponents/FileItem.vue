@@ -1,15 +1,22 @@
 <template>
   <div class="file-item">
     <img src="./folder.svg" alt="folder" class="file-item__icon" />
-    <div class="file-item__title">Test</div>
+    <div class="file-item__title">{{ file.name }}</div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { IFile } from '@/models/IFIle';
+import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
-  name: 'FileItem'
+  name: 'FileItem',
+  props: {
+    file: {
+      type: Object as PropType<IFile>,
+      required: true
+    }
+  }
 });
 </script>
 

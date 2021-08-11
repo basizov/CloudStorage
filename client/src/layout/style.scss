@@ -15,11 +15,11 @@ html {
 
 .container {
   position: absolute;
-  top: 5rem;
+  top: 7rem;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  min-height: calc(100% - 5rem);
+  min-height: calc(100% - 7rem);
   &__content {
     max-width: 114rem;
     padding: .5rem;

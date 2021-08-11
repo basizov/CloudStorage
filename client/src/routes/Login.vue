@@ -1,6 +1,5 @@
 <template>
   <section class="login">
-    <pre>{{ $store.getters.getUser }}</pre>
     <h2 class="login__title">Авторизация</h2>
     <auth-form
       @submitForm="login"
@@ -25,7 +24,9 @@ export default defineComponent({
   methods: {
     login(loginParams: IAuth) {
       this.$store.dispatch(CommonActions.LOGIN_USER, loginParams);
-      this.$router.push('/');
+      if (this.$store.getters.getIsAuth) {
+        this.$router.push('/');
+      }
     }
   }
 });

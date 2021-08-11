@@ -2,15 +2,11 @@
   <section class="files">
     <h3 class="files__subtitle">Папки</h3>
     <div class="files__folders">
-      <file-item />
-      <file-item />
-      <file-item />
-      <file-item />
-      <file-item />
-      <file-item />
-      <file-item />
-      <file-item />
-      <file-item />
+      <file-item
+        v-for="file in $store.getters.getFiles"
+        :key="file.id"
+        :file="file"
+      />
     </div>
     <h3 class="files__subtitle">Файлы</h3>
     <div class="files__files">
@@ -30,10 +26,14 @@
 import { defineComponent } from 'vue';
 import FileInfo from './FileInfo.vue';
 import FileItem from './FileItem.vue';
+import { FileActions } from '@/store/fileModule/actions';
 
 export default defineComponent({
   components: { FileItem, FileInfo },
-  name: 'FileList'
+  name: 'FileList',
+  created() {
+    this.$store.dispatch(FileActions.GET_FILES);
+  }
 });
 </script>
 
