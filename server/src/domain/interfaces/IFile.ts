@@ -5,6 +5,7 @@ export interface IFile extends Document {
   name: string;
   type: string;
   path: string;
+  created: Date;
   accessLink: string;
   size: number;
   userId: string;

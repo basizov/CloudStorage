@@ -7,19 +7,28 @@
         class="file__img"
       />
       <div class="file__utils">
-        <div class="file__size">30Gb</div>
-        <div class="file__created">30.12.2001</div>
+        <div class="file__size">{{ file.size }}</div>
+        <div class="file__created">
+          {{ file.created.toString().slice(0, 10) }}
+        </div>
       </div>
     </div>
-    <div class="file__title">Test.txt</div>
+    <div class="file__title">{{ file.name }}</div>
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { IFile } from '@/models/IFIle';
+import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
-  name: 'FileInfo'
+  name: 'FileInfo',
+  props: {
+    file: {
+      type: Object as PropType<IFile>,
+      required: true
+    }
+  }
 });
 </script>
 
