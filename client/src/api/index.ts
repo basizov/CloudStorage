@@ -4,12 +4,13 @@ import axios from "./axios";
 import { IUser } from "@/models/IUser";
 import { IRequestFile, ICreateFile } from "@/models/IFile";
 
-enum IRequestPaths {
+export enum IRequestPaths {
   REGISTER_PATH = '/authorize/registration',
   LOGIN_PATH = '/authorize/login',
   AUTH_PATH = '/authorize/auth',
   FILES = '/file',
   UPLOAD_FILE = '/file/upload',
+  DOWNLOAD_FILE = '/file/download'
 };
 
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
@@ -33,7 +34,10 @@ const File = {
     params ?? new URLSearchParams()
   ),
   createDir: (file: ICreateFile) => requests.post<IRequestFile>(IRequestPaths.FILES, file),
-  uploadFile: (file: FormData) => requests.post<IRequestFile>(IRequestPaths.UPLOAD_FILE, file)
+  uploadFile: (file: FormData) => requests.post<IRequestFile>(IRequestPaths.UPLOAD_FILE, file),
+  downloadFile: (id: string) => axios.get(`${IRequestPaths.DOWNLOAD_FILE}?id=${id}`, {
+    responseType: 'blob'
+  }).then(res => res as AxiosResponse<Blob>)
 };
 
 export default {

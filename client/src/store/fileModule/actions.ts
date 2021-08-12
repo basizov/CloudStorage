@@ -1,4 +1,5 @@
-import { createFileHandler, getFilesHandler, uploadFileHandler } from "@/api/files";
+import { createFileHandler, downloadFileHandler, getFilesHandler, uploadFileHandler } from "@/api/files";
+import { IFile } from "@/models/IFile";
 import { ActionContext, ActionTree } from "vuex";
 import { CommonState } from "../commonModule/state";
 import { FileMutations, FileMutationsTypes } from "./mutations";
@@ -7,7 +8,8 @@ import { FileState } from "./state";
 export enum FileActions {
   GET_FILES = 'getFiles',
   CREATE_DIRECTORY = 'createDir',
-  UPLOAD_FILE = 'uploadFile'
+  UPLOAD_FILE = 'uploadFile',
+  DOWNLOAD_FILE = 'downloadFile',
 };
 
 type AugmentedActionContext = {
@@ -21,6 +23,7 @@ export interface IFileActions {
   [FileActions.GET_FILES]: ({ state, commit }: AugmentedActionContext) => void;
   [FileActions.CREATE_DIRECTORY]: ({ state, commit }: AugmentedActionContext, name: string) => void;
   [FileActions.UPLOAD_FILE]: ({ state, commit }: AugmentedActionContext, file: File) => void;
+  [FileActions.DOWNLOAD_FILE]: (_: AugmentedActionContext, file: IFile) => void;
 };
 
 const actions: ActionTree<FileState, CommonState> & IFileActions = {
@@ -44,6 +47,9 @@ const actions: ActionTree<FileState, CommonState> & IFileActions = {
     if (fileCreated) {
       commit(FileMutationsTypes.ADD_FILE, fileCreated);
     }
+  },
+  [FileActions.DOWNLOAD_FILE]: async (_: AugmentedActionContext, file: IFile) => {
+    await downloadFileHandler(file);
   }
 }
 

@@ -55,6 +55,7 @@ export default defineComponent({
 
         if (
           !clickedElement.classList.contains('file-header__search') &&
+          !clickedElement.classList.contains('file') &&
           !clickedElement.classList.contains('file-item')
         ) {
           const parentCoordinates = mainSection.getBoundingClientRect();

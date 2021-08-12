@@ -1,7 +1,8 @@
+import config from "@/enviroment/config";
 import { IAxiosFullError } from "@/models/IAxiosError";
 import { ICreateFile, IFile, IRequestFile } from "@/models/IFile";
 import { AxiosError } from "axios";
-import api from ".";
+import api, { IRequestPaths } from ".";
 
 export const getFilesHandler = async (currentDir: string | null) => {
   try {
@@ -66,6 +67,30 @@ export const uploadFileHandler = async (currentDir: string | null, file: File) =
     const fileResult: IFile = { id: uploadedFile._id, ...uploadedFile }
 
     return (fileResult);
+  } catch (e) {
+    const error = e as AxiosError<IAxiosFullError>;
+
+    if (error.response) {
+      console.log(error.response.data);
+    } else console.log('Axios error');
+  }
+};
+
+export const downloadFileHandler = async (file: IFile) => {
+  try {
+    const response = await api.File.downloadFile(file.id);
+
+    if (response.status === 200) {
+      const blob = response.data;
+      const dowloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+
+      link.href = dowloadUrl;
+      link.download = file.name;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    }
   } catch (e) {
     const error = e as AxiosError<IAxiosFullError>;
 

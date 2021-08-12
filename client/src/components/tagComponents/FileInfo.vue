@@ -1,5 +1,5 @@
 <template>
-  <section class="file">
+  <section class="file" @dblclick="downloadFile">
     <div class="file__info">
       <img
         src="https://thumbs-prod.si-cdn.com/P4Smi9MthEBXH7pdW8Y-bvwR6ts=/1072x720/filters:no_upscale()/https://public-media.si-cdn.com/filer/04/8e/048ed839-a581-48af-a0ae-fac6fec00948/gettyimages-168346757_web.jpg"
@@ -19,6 +19,7 @@
 
 <script lang="ts">
 import { IFile } from '@/models/IFile';
+import { FileActions } from '@/store/fileModule/actions';
 import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
@@ -27,6 +28,11 @@ export default defineComponent({
     file: {
       type: Object as PropType<IFile>,
       required: true
+    }
+  },
+  methods: {
+    downloadFile() {
+      this.$store.dispatch(FileActions.DOWNLOAD_FILE, this.file);
     }
   }
 });
@@ -58,6 +64,13 @@ export default defineComponent({
     font-weight: 500;
     background-color: var(--secondary);
     letter-spacing: 0.1em;
+  }
+  &__size,
+  &__created,
+  &__title,
+  &__utils,
+  &__info {
+    pointer-events: none;
   }
   &__size,
   &__created {

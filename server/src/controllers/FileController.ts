@@ -16,6 +16,10 @@ interface ICreateDirRequest extends IAuthRequest {
 
 interface ISearchInDirRequest extends IAuthRequest<any, any, any, ISearchInDir> { };
 
+interface IDownloadInDirRequest extends IAuthRequest {
+  query: IDownloadInDir;
+};
+
 export interface ICreateDirServiceParams {
   name: string;
   type: string;
@@ -24,6 +28,10 @@ export interface ICreateDirServiceParams {
 
 export type ISearchInDir = {
   parentId: string;
+};
+
+export type IDownloadInDir = {
+  id: string;
 };
 
 class FileController {
@@ -108,6 +116,26 @@ class FileController {
         await dbFile.save();
         await user.save();
         res.json(dbFile);
+      }
+    } catch (e) {
+      next(e as ApplicationError);
+    }
+  }
+
+  async downloadFile(req: Request, res: Response, next: NextFunction) {
+    try {
+      const request = req as IDownloadInDirRequest;
+      console.log(request.query.id, request.id);
+      const file: IFile = await File.findOne({
+        userId: request.id,
+        _id: request.query.id
+      });
+      const path = `${envirometVariables.FILE_PATH}\\${request.id}\\${file.path}\\${file.name}`;
+
+      if (fs.existsSync(path)) {
+        res.download(path, file.name);
+      } else {
+        throw ApplicationError.badRequest("Couldn't find the same file!");
       }
     } catch (e) {
       next(e as ApplicationError);
