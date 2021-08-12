@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { IFile } from '@/models/IFIle';
+import { IFile } from '@/models/IFile';
 import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({

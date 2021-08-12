@@ -15,11 +15,12 @@ $classic-07: hsla(209, 75%, 24%, 0.7);
 $classic-08: hsla(209, 75%, 24%, 0.8);
 
 $black: hsl(0, 0%, 0%);
-$black-07: hsla(0, 0%, 0%, 0.7);
 $black-03: hsla(0, 0%, 0%, 0.3);
+$black-07: hsla(0, 0%, 0%, 0.7);
 
 
 $white: hsl(0, 0%, 100%);
+$white-03: hsla(0, 0%, 100%, 0.3);
 $white-07: hsla(0, 0%, 100%, 0.7);
 $white-08: hsla(0, 0%, 100%, 0.8);
 
@@ -49,6 +50,7 @@ $menu-zindex: 10000;
 
 
   --white: #{$white};
+  --white-03: #{$white-03};
   --white-07: #{$white-07};
   --white-08: #{$white-08};
   

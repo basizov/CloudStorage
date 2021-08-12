@@ -1,16 +1,12 @@
-import { getFilesHandler } from "@/api/files";
+import { createFileHandler, getFilesHandler } from "@/api/files";
 import { ActionContext, ActionTree } from "vuex";
-import { Modules } from "..";
 import { CommonState } from "../commonModule/state";
 import { FileMutations, FileMutationsTypes } from "./mutations";
 import { FileState } from "./state";
 
 export enum FileActions {
-  GET_FILES = 'getFiles'
-};
-
-export enum AllFileActions {
-  GET_FILES = 'fileModule/getFiles'
+  GET_FILES = 'getFiles',
+  CREATE_DIRECTORY = 'createDir'
 };
 
 type AugmentedActionContext = {
@@ -22,6 +18,7 @@ type AugmentedActionContext = {
 
 export interface IFileActions {
   [FileActions.GET_FILES]: ({ state, commit }: AugmentedActionContext) => void;
+  [FileActions.CREATE_DIRECTORY]: ({ state, commit }: AugmentedActionContext, name: string) => void;
 };
 
 const actions: ActionTree<FileState, CommonState> & IFileActions = {
@@ -30,7 +27,13 @@ const actions: ActionTree<FileState, CommonState> & IFileActions = {
 
     if (files) {
       commit(FileMutationsTypes.SET_FILES, files);
-      console.log(files);
+    }
+  },
+  [FileActions.CREATE_DIRECTORY]: async ({ state, commit }: AugmentedActionContext, name: string) => {
+    const fileCreated = await createFileHandler(state.currentDir, name);
+
+    if (fileCreated) {
+      commit(FileMutationsTypes.ADD_FILE, fileCreated);
     }
   }
 }

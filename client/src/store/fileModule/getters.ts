@@ -1,4 +1,4 @@
-import { IFile } from "@/models/IFIle";
+import { IFile } from "@/models/IFile";
 import { FileState } from "./state";
 
 export enum FileGettersTypes {

@@ -21,12 +21,12 @@ export default defineComponent({
   border-radius: 0.7em;
   border: 0.1rem solid var(--secondary);
   box-shadow: 0 0 0.7em var(--black-03);
-  transition: background-color 250ms linear;
+  transition: opacity 250ms linear;
   &:hover {
-    background-color: var(--classic-07);
+    opacity: 0.7;
   }
   &:active {
-    background-color: var(--classic-08);
+    opacity: 0.8;
   }
 }
 </style>

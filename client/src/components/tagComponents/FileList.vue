@@ -20,7 +20,7 @@ import { defineComponent } from 'vue';
 import FileInfo from './FileInfo.vue';
 import FileItem from './FileItem.vue';
 import { FileActions } from '@/store/fileModule/actions';
-import { IFile } from '@/models/IFIle';
+import { IFile } from '@/models/IFile';
 
 export default defineComponent({
   components: { FileItem, FileInfo },

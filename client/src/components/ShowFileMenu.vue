@@ -5,7 +5,7 @@
       'menu-active': showMenu
     }"
   >
-    <div class="menu__item">
+    <div class="menu__item" @click="createFolderHandler">
       <create-folder-icon class="menu__icon" />
       <div class="menu__subtitle">Создать папку</div>
     </div>
@@ -24,15 +24,21 @@
 import CreateFolderIcon from '@/components/icons/CreateFolderIcon.vue';
 import UploadFileIcon from '@/components/icons/UploadFileIcon.vue';
 import UploadFolderIcon from '@/components/icons/UploadFolderIcon.vue';
+import { CommonMutationsTypes } from '@/store/commonModule/mutations';
 import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
   components: { CreateFolderIcon, UploadFolderIcon, UploadFileIcon },
   name: 'ShowFileMenu',
-  props: {
-    showMenu: {
-      type: Boolean as PropType<boolean>,
-      default: false
+  computed: {
+    showMenu(): boolean {
+      return this.$store.getters.getShowFileMenu;
+    }
+  },
+  methods: {
+    createFolderHandler() {
+      this.$store.commit(CommonMutationsTypes.SET_SHOW_FILE_MENU, false);
+      this.$store.commit(CommonMutationsTypes.SET_CREATE_FOLDER, true);
     }
   }
 });
@@ -41,8 +47,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 .menu {
   opacity: 0;
-  // height: 0;
-  transition: opacity 250ms linear;
+  visibility: hidden;
+  transition: opacity 250ms linear, visibility 250ms linear;
 
   display: flex;
   flex-direction: column;
@@ -74,6 +80,7 @@ export default defineComponent({
   }
   &-active {
     opacity: 1;
+    visibility: visible;
   }
 }
 </style>

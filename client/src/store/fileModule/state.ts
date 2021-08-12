@@ -1,4 +1,4 @@
-import { IFile } from "@/models/IFIle";
+import { IFile } from "@/models/IFile";
 
 export type FileState = {
   files: IFile[];

@@ -2,13 +2,13 @@ import { AxiosResponse } from "axios";
 import { IAuth } from "@/models/IAuth";
 import axios from "./axios";
 import { IUser } from "@/models/IUser";
-import { IFile } from "@/models/IFIle";
+import { IFile, ICreateFile } from "@/models/IFile";
 
 enum IRequestPaths {
   REGISTER_PATH = '/authorize/registration',
   LOGIN_PATH = '/authorize/login',
   AUTH_PATH = '/authorize/auth',
-  GET_FILES = '/file'
+  FILES = '/file'
 };
 
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
@@ -28,9 +28,10 @@ const Auth = {
 
 const File = {
   getFiles: (params?: URLSearchParams | null) => requests.get<IFile[]>(
-    IRequestPaths.GET_FILES,
+    IRequestPaths.FILES,
     params ?? new URLSearchParams()
-  )
+  ),
+  createDir: (file: ICreateFile) => requests.post<IFile>(IRequestPaths.FILES, file)
 };
 
 export default {

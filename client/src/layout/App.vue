@@ -14,24 +14,27 @@
       top: `${top}px`,
       left: `${left}px`
     }"
-    :showMenu="showMenu"
   />
+
+  <create-directory />
 </template>
 
 <script lang="ts">
 import ShowFileMenu from '@/components/ShowFileMenu.vue';
+import CreateDirectory from '@/components/tagComponents/CreateDirectory.vue';
+import TheNavbarVue from '@/components/TheNavbar.vue';
 import TheNavbar from '@/components/TheNavbar.vue';
 import { CommonActions } from '@/store/commonModule/actions';
+import { CommonMutationsTypes } from '@/store/commonModule/mutations';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  components: { TheNavbar, ShowFileMenu },
+  components: { TheNavbar, ShowFileMenu, CreateDirectory },
   name: 'App',
   data() {
     return {
       top: 0,
-      left: 0,
-      showMenu: false
+      left: 0
     };
   },
   created() {
@@ -39,11 +42,11 @@ export default defineComponent({
   },
   methods: {
     hideFileMenu() {
-      this.showMenu = false;
+      this.$store.commit(CommonMutationsTypes.SET_SHOW_FILE_MENU, false);
     },
     showFileMenu(e: MouseEvent) {
       e.preventDefault();
-      this.showMenu = false;
+      this.hideFileMenu();
       setTimeout(() => {
         const clickedElement = e.target as HTMLDivElement;
         const mainSection = this.$refs.main as HTMLDivElement;
@@ -67,7 +70,7 @@ export default defineComponent({
           } else {
             this.top = e.clientY;
           }
-          this.showMenu = true;
+          this.$store.commit(CommonMutationsTypes.SET_SHOW_FILE_MENU, true);
         }
       }, 200);
     }

@@ -7,3 +7,9 @@ export interface IFile {
   accessLink: string;
   size: number;
 };
+
+export interface ICreateFile {
+  name: string;
+  parentId: string | null;
+  type: string;
+}
