@@ -26,14 +26,27 @@ export default defineComponent({
   components: { FileItem, FileInfo },
   name: 'FileList',
   created() {
-    this.$store.dispatch(FileActions.GET_FILES);
+    this.loadFiles();
   },
   computed: {
+    getCurrentDir(): string | null {
+      return this.$store.getters.getCurrentDir;
+    },
     getDirs(): IFile[] {
       return this.$store.getters.getFiles.filter((f) => f.type === 'dir');
     },
     getFiles(): IFile[] {
       return this.$store.getters.getFiles.filter((f) => f.type !== 'dir');
+    }
+  },
+  methods: {
+    loadFiles() {
+      this.$store.dispatch(FileActions.GET_FILES);
+    }
+  },
+  watch: {
+    getCurrentDir() {
+      this.loadFiles();
     }
   }
 });

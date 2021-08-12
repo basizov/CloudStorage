@@ -1,4 +1,5 @@
 import express, { Application } from 'express';
+import fileUpload from 'express-fileupload';
 import mongoose from 'mongoose';
 import { ERouterLinks } from './domain/enums/ERouterLinks';
 import enviromentConfig from './enviroment/config';
@@ -10,6 +11,7 @@ import router from './routes';
 const applicaton: Application = express();
 const PORT = enviromentConfig.SERVER_STARTING_PORT;
 
+applicaton.use(fileUpload({}));
 applicaton.use(corsMiddleware);
 applicaton.use(express.json());
 applicaton.use(ERouterLinks.BASE_ROUTE, router);

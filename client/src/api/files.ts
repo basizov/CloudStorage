@@ -1,5 +1,5 @@
 import { IAxiosFullError } from "@/models/IAxiosError";
-import { ICreateFile, IFile } from "@/models/IFile";
+import { ICreateFile, IFile, IRequestFile } from "@/models/IFile";
 import { AxiosError } from "axios";
 import api from ".";
 
@@ -9,11 +9,19 @@ export const getFilesHandler = async (currentDir: string | null) => {
       const params = new URLSearchParams();
 
       params.append('parentId', currentDir);
-      const files = await api.File.getFiles(params);
+      const filesEntities: IRequestFile[] = await api.File.getFiles(params);
+      const files: IFile[] = filesEntities.map(x => ({
+        id: x._id,
+        ...x
+      }));
 
       return (files);
     } else {
-      const files = await api.File.getFiles();
+      const filesEntities = await api.File.getFiles();
+      const files: IFile[] = filesEntities.map(x => ({
+        id: x._id,
+        ...x
+      }));
 
       return (files);
     }
@@ -33,9 +41,10 @@ export const createFileHandler = async (currentDir: string | null, name: string)
       parentId: currentDir,
       type: 'dir'
     };
-    const fileCreated = await api.File.createDir(fileEntity);
+    const fileCreated: IRequestFile = await api.File.createDir(fileEntity);
+    const file: IFile = { id: fileCreated._id, ...fileCreated }
 
-    return (fileCreated);
+    return (file);
   } catch (e) {
     const error = e as AxiosError<IAxiosFullError>;
 

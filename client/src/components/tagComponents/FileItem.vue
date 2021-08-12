@@ -1,5 +1,5 @@
 <template>
-  <div class="file-item">
+  <div class="file-item" @dblclick="openDirectory">
     <default-folder-icon class="file-item__icon" />
     <div class="file-item__title">{{ file.name }}</div>
   </div>
@@ -8,6 +8,7 @@
 <script lang="ts">
 import DefaultFolderIcon from '@/components/icons/DefaultFolderIcon.vue';
 import { IFile } from '@/models/IFile';
+import { FileMutationsTypes } from '@/store/fileModule/mutations';
 import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
@@ -17,6 +18,11 @@ export default defineComponent({
     file: {
       type: Object as PropType<IFile>,
       required: true
+    }
+  },
+  methods: {
+    openDirectory() {
+      this.$store.commit(FileMutationsTypes.SET_CURRENT_DIR, this.file.id);
     }
   }
 });
