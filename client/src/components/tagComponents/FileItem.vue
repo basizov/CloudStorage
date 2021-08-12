@@ -1,19 +1,17 @@
 <template>
   <div class="file-item">
-    <img
-      src="@/assets/defaultFolder.svg"
-      alt="folder"
-      class="file-item__icon"
-    />
+    <default-folder-icon class="file-item__icon" />
     <div class="file-item__title">{{ file.name }}</div>
   </div>
 </template>
 
 <script lang="ts">
+import DefaultFolderIcon from '@/components/icons/DefaultFolderIcon.vue';
 import { IFile } from '@/models/IFIle';
 import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
+  components: { DefaultFolderIcon },
   name: 'FileItem',
   props: {
     file: {

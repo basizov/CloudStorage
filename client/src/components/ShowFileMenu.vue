@@ -6,32 +6,28 @@
     }"
   >
     <div class="menu__item">
-      <img
-        src="@/assets/createFolder.svg"
-        alt="createFolder"
-        class="menu__icon"
-      />
+      <create-folder-icon class="menu__icon" />
       <div class="menu__subtitle">Создать папку</div>
     </div>
     <div class="menu__item">
-      <img
-        src="@/assets/uploadFolder.svg"
-        alt="uploadFolder"
-        class="menu__icon"
-      />
+      <upload-folder-icon class="menu__icon" />
       <div class="menu__subtitle">Загрузить папку</div>
     </div>
     <div class="menu__item">
-      <img src="@/assets/uploadFile.svg" alt="uploadFile" class="menu__icon" />
+      <upload-file-icon class="menu__icon" />
       <div class="menu__subtitle">Загрузить файл</div>
     </div>
   </section>
 </template>
 
 <script lang="ts">
+import CreateFolderIcon from '@/components/icons/CreateFolderIcon.vue';
+import UploadFileIcon from '@/components/icons/UploadFileIcon.vue';
+import UploadFolderIcon from '@/components/icons/UploadFolderIcon.vue';
 import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
+  components: { CreateFolderIcon, UploadFolderIcon, UploadFileIcon },
   name: 'ShowFileMenu',
   props: {
     showMenu: {
