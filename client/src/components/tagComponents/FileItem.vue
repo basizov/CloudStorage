@@ -1,6 +1,10 @@
 <template>
   <div class="file-item">
-    <img src="./folder.svg" alt="folder" class="file-item__icon" />
+    <img
+      src="@/assets/defaultFolder.svg"
+      alt="folder"
+      class="file-item__icon"
+    />
     <div class="file-item__title">{{ file.name }}</div>
   </div>
 </template>

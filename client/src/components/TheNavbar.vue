@@ -8,7 +8,7 @@
         <router-link class="navbar__route" to="/info">
           Информация
         </router-link>
-        <router-link class="navbar__route" to="/setting">
+        <router-link class="navbar__route" to="/settings">
           Настройки
         </router-link>
       </div>
@@ -71,6 +71,10 @@ export default defineComponent({
     }
     &:active {
       opacity: 0.8;
+    }
+    &:active,
+    &:focus {
+      border-color: var(--warning);
     }
   }
   &__link {

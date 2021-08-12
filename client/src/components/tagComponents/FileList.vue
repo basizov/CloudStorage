@@ -1,13 +1,17 @@
 <template>
   <section class="files">
-    <h3 class="files__subtitle">Папки</h3>
-    <div class="files__folders">
-      <file-item v-for="file in getDirs" :key="file.id" :file="file" />
-    </div>
-    <h3 class="files__subtitle">Файлы</h3>
-    <div class="files__files">
-      <file-info v-for="file in getFiles" :key="file.id" :file="file" />
-    </div>
+    <template v-if="getDirs.length > 0">
+      <h3 class="files__subtitle">Папки</h3>
+      <div class="files__folders">
+        <file-item v-for="file in getDirs" :key="file.id" :file="file" />
+      </div>
+    </template>
+    <template v-if="getFiles.length > 0">
+      <h3 class="files__subtitle">Файлы</h3>
+      <div class="files__files">
+        <file-info v-for="file in getFiles" :key="file.id" :file="file" />
+      </div>
+    </template>
   </section>
 </template>
 
@@ -37,6 +41,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .files {
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;

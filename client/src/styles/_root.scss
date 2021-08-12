@@ -24,6 +24,7 @@ $white-07: hsla(0, 0%, 100%, 0.7);
 $white-08: hsla(0, 0%, 100%, 0.8);
 
 $navbar-zindex: 10000;
+$menu-zindex: 10000;
 
 :root {
   --primary: #{$primary};
@@ -52,6 +53,7 @@ $navbar-zindex: 10000;
   --white-08: #{$white-08};
   
   --navbar-zindex: #{$navbar-zindex};
+  --menu-zindex: #{$menu-zindex};
 
   // --primary: rgb(122, 122, 122);
   // --secondary: rgb(185, 185, 185);
