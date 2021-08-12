@@ -13,10 +13,17 @@
       <upload-folder-icon class="menu__icon" />
       <div class="menu__subtitle">Загрузить папку</div>
     </div>
-    <div class="menu__item">
+    <label htmlFor="fileUpload" class="menu__item">
       <upload-file-icon class="menu__icon" />
       <div class="menu__subtitle">Загрузить файл</div>
-    </div>
+      <input
+        multiple
+        type="file"
+        id="fileUpload"
+        class="menu__fileUpload"
+        @change="selectFile"
+      />
+    </label>
   </section>
 </template>
 
@@ -25,7 +32,8 @@ import CreateFolderIcon from '@/components/icons/CreateFolderIcon.vue';
 import UploadFileIcon from '@/components/icons/UploadFileIcon.vue';
 import UploadFolderIcon from '@/components/icons/UploadFolderIcon.vue';
 import { CommonMutationsTypes } from '@/store/commonModule/mutations';
-import { defineComponent, PropType } from 'vue';
+import { FileActions } from '@/store/fileModule/actions';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   components: { CreateFolderIcon, UploadFolderIcon, UploadFileIcon },
@@ -39,6 +47,18 @@ export default defineComponent({
     createFolderHandler() {
       this.$store.commit(CommonMutationsTypes.SET_SHOW_FILE_MENU, false);
       this.$store.commit(CommonMutationsTypes.SET_CREATE_FOLDER, true);
+    },
+    selectFile(e: Event) {
+      const event = e.target as HTMLInputElement;
+      const files = event.files;
+
+      if (files) {
+        const iterateFiles = [...files];
+
+        iterateFiles.forEach((file) =>
+          this.$store.dispatch(FileActions.UPLOAD_FILE, file)
+        );
+      }
     }
   }
 });
@@ -63,6 +83,9 @@ export default defineComponent({
   z-index: var(--menu-zindex);
   overflow: hidden;
   padding: 0.7rem 0;
+  &__fileUpload {
+    display: none;
+  }
   &__item {
     cursor: pointer;
     display: flex;

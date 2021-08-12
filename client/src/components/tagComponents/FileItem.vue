@@ -41,6 +41,7 @@ export default defineComponent({
   border-radius: 0.3em;
   background-color: var(--primary);
   box-shadow: 0 0 1rem var(--black-03);
+  transition: transform 250ms linear, border-color 250ms linear;
   &__icon {
     width: 3rem;
     height: 3rem;
@@ -48,6 +49,10 @@ export default defineComponent({
   &__title {
     font-size: 1.6rem;
     letter-spacing: 0.1em;
+  }
+  &:hover {
+    transform: scale(1.01);
+    border-color: var(--classic);
   }
 }
 </style>

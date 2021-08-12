@@ -52,4 +52,26 @@ export const createFileHandler = async (currentDir: string | null, name: string)
       console.log(error.response.data);
     } else console.log('Axios error');
   }
-}
+};
+
+export const uploadFileHandler = async (currentDir: string | null, file: File) => {
+  try {
+    const formData = new FormData();
+
+    formData.append('file', file);
+    if (currentDir) {
+      formData.append('parentId', currentDir);
+    }
+    const uploadedFile = await api.File.uploadFile(formData);
+    const fileResult: IFile = { id: uploadedFile._id, ...uploadedFile }
+
+    return (fileResult);
+  } catch (e) {
+    const error = e as AxiosError<IAxiosFullError>;
+
+    if (error.response) {
+      console.log(error.response.data);
+    } else console.log('Axios error');
+  }
+};
+

@@ -44,6 +44,9 @@ export default defineComponent({
   width: 100%;
   transition: all 250ms linear;
   &__img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -62,9 +65,12 @@ export default defineComponent({
   }
   &__info {
     position: relative;
-    max-height: 12rem;
+    height: 12rem;
   }
   &__utils {
+    position: absolute;
+    top: 0;
+    left: 100%;
     width: 100%;
     height: 100%;
     display: flex;
@@ -72,9 +78,6 @@ export default defineComponent({
     align-items: center;
     flex-direction: column;
     gap: 1rem;
-    position: absolute;
-    top: 0;
-    left: 100%;
     visibility: hidden;
     background-color: var(--black-07);
     transition: all 250ms linear;
@@ -84,8 +87,7 @@ export default defineComponent({
     transform: scale(1.01);
     .file {
       &__img {
-        width: 0;
-        transform: scale(0);
+        left: -100%;
         visibility: hidden;
       }
       &__utils {

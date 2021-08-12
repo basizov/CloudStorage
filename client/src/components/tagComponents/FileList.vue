@@ -59,7 +59,6 @@ export default defineComponent({
   flex-direction: column;
   gap: 1rem;
   width: 100%;
-  height: 100%;
   &__subtitle {
     font-size: 1.8rem;
     font-weight: 700;

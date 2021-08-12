@@ -8,7 +8,8 @@ enum IRequestPaths {
   REGISTER_PATH = '/authorize/registration',
   LOGIN_PATH = '/authorize/login',
   AUTH_PATH = '/authorize/auth',
-  FILES = '/file'
+  FILES = '/file',
+  UPLOAD_FILE = '/file/upload',
 };
 
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
@@ -31,7 +32,8 @@ const File = {
     IRequestPaths.FILES,
     params ?? new URLSearchParams()
   ),
-  createDir: (file: ICreateFile) => requests.post<IRequestFile>(IRequestPaths.FILES, file)
+  createDir: (file: ICreateFile) => requests.post<IRequestFile>(IRequestPaths.FILES, file),
+  uploadFile: (file: FormData) => requests.post<IRequestFile>(IRequestPaths.UPLOAD_FILE, file)
 };
 
 export default {
