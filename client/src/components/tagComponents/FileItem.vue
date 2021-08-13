@@ -1,5 +1,5 @@
 <template>
-  <div class="file-item" @dblclick="openDirectory">
+  <div class="file-item" @dblclick="openDirectory" @click="deleteDirectory">
     <default-folder-icon class="file-item__icon" />
     <div class="file-item__title">{{ file.name }}</div>
   </div>
@@ -8,6 +8,7 @@
 <script lang="ts">
 import DefaultFolderIcon from '@/components/icons/DefaultFolderIcon.vue';
 import { IFile } from '@/models/IFile';
+import { FileActions } from '@/store/fileModule/actions';
 import { FileMutationsTypes } from '@/store/fileModule/mutations';
 import { defineComponent, PropType } from 'vue';
 
@@ -23,6 +24,9 @@ export default defineComponent({
   methods: {
     openDirectory() {
       this.$store.commit(FileMutationsTypes.SET_CURRENT_DIR, this.file.id);
+    },
+    deleteDirectory() {
+      this.$store.dispatch(FileActions.DELETE_FILE, this.file);
     }
   }
 });

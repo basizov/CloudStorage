@@ -9,5 +9,6 @@ router.get('', authMiddleware, FileController.getFiles);
 router.get(ERouterLinks.DOWNLOAD, authMiddleware, FileController.downloadFile);
 router.post('', authMiddleware, FileController.createDirectory);
 router.post(ERouterLinks.UPLOAD, authMiddleware, FileController.uploadFile);
+router.delete(ERouterLinks.DELETE, authMiddleware, FileController.deleteFile);
 
 export default router;

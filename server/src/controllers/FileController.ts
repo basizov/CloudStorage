@@ -103,12 +103,17 @@ class FileController {
           throw ApplicationError.badRequest('The same file is existed!');
         }
         file.mv(path);
+        let filePath = file.name;
+
+        if (parent) {
+          filePath = `${parent.path}\\${file.name}`;
+        }
         const type = file.name.split('.').pop();
         const dbFile: IFile = new File({
           name: file.name,
           type: type,
           size: file.size,
-          path: parent?.path,
+          path: filePath,
           parentId: parent?._id,
           userId: user._id
         });
@@ -125,7 +130,6 @@ class FileController {
   async downloadFile(req: Request, res: Response, next: NextFunction) {
     try {
       const request = req as IDownloadInDirRequest;
-      console.log(request.query.id, request.id);
       const file: IFile = await File.findOne({
         userId: request.id,
         _id: request.query.id
@@ -141,6 +145,25 @@ class FileController {
       next(e as ApplicationError);
     }
   }
-};
+
+  async deleteFile(req: Request, res: Response, next: NextFunction) {
+    try {
+      const request = req as IDownloadInDirRequest;
+      const file: IFile = await File.findOne({
+        userId: request.id,
+        _id: request.query.id
+      });
+
+      if (!file) {
+        throw ApplicationError.badRequest("Couldn't find the same file!");
+      }
+      FileService.deleteFile(file);
+      await file.remove();
+      res.json("File completely deleted!");
+    } catch (e) {
+      next(e as ApplicationError);
+    }
+  };
+}
 
 export default new FileController();

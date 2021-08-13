@@ -100,3 +100,17 @@ export const downloadFileHandler = async (file: IFile) => {
   }
 };
 
+export const deleteFileHandler = async (file: IFile) => {
+  try {
+    const response = await api.File.deleteFile(file.id);
+
+    return (response);
+  } catch (e) {
+    const error = e as AxiosError<IAxiosFullError>;
+
+    if (error.response) {
+      console.log(error.response.data);
+    } else console.log('Axios error');
+  }
+};
+

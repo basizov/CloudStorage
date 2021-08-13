@@ -1,4 +1,4 @@
-import { createFileHandler, downloadFileHandler, getFilesHandler, uploadFileHandler } from "@/api/files";
+import { createFileHandler, deleteFileHandler, downloadFileHandler, getFilesHandler, uploadFileHandler } from "@/api/files";
 import { IFile } from "@/models/IFile";
 import { ActionContext, ActionTree } from "vuex";
 import { CommonState } from "../commonModule/state";
@@ -10,6 +10,7 @@ export enum FileActions {
   CREATE_DIRECTORY = 'createDir',
   UPLOAD_FILE = 'uploadFile',
   DOWNLOAD_FILE = 'downloadFile',
+  DELETE_FILE = 'deleteFile'
 };
 
 type AugmentedActionContext = {
@@ -24,6 +25,7 @@ export interface IFileActions {
   [FileActions.CREATE_DIRECTORY]: ({ state, commit }: AugmentedActionContext, name: string) => void;
   [FileActions.UPLOAD_FILE]: ({ state, commit }: AugmentedActionContext, file: File) => void;
   [FileActions.DOWNLOAD_FILE]: (_: AugmentedActionContext, file: IFile) => void;
+  [FileActions.DELETE_FILE]: ({ commit }: AugmentedActionContext, file: IFile) => void;
 };
 
 const actions: ActionTree<FileState, CommonState> & IFileActions = {
@@ -50,6 +52,13 @@ const actions: ActionTree<FileState, CommonState> & IFileActions = {
   },
   [FileActions.DOWNLOAD_FILE]: async (_: AugmentedActionContext, file: IFile) => {
     await downloadFileHandler(file);
+  },
+  [FileActions.DELETE_FILE]: async ({ commit }: AugmentedActionContext, file: IFile) => {
+    const mes = await deleteFileHandler(file);
+
+    if (mes) {
+      commit(FileMutationsTypes.DELETE_FILE, file);
+    }
   }
 }
 
